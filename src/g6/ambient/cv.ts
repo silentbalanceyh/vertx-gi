@@ -10,7 +10,10 @@ export const ID_TOPOLOGY = "Z_TopologyContainer";
 export const TEXT_LABEL_DEFAULT = "新建节点";
 export const TEXT_NODE_DEFAULT = "新节点";
 export const TEXT_EDGE_DEFAULT = "新连线";
-
+/*
+ * 默认宽度
+ */
+export const VIEW_FIT_PADDING = 200;
 // ---------------------- 模式 --------------------------
 /*
  * 渲染模式

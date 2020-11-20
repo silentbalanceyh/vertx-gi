@@ -104,4 +104,4 @@ export type EventGraphReact =
     | keyof typeof EventGraphCanvas
     | keyof typeof EventAop
 
-export type EventGraphReactProps = Record<EventGraphReact, (e: any) => void>;
+export type EventGraphReactProp = Record<EventGraphReact, (e: any) => void>;

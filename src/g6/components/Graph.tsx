@@ -5,6 +5,9 @@ import {EditorContextPropPrivate, WrapEditorContextPrivate} from "./EditorContex
 import * as G6 from '@antv/g6';
 import {EventAop, EventGraphCanvas, EventGraphCommon, EventGraphEdge, EventGraphNode} from "@/g6/ambient/cv.event";
 
+import '../commands';
+import '../behaviors';
+
 interface GraphProp extends Partial<EventGraphReactProp>, EditorContextPropPrivate {
     style?: React.CSSProperties;
     className?: string;
@@ -38,14 +41,13 @@ class Graph extends React.Component<GraphProp, GraphState> {
     initGraph() {
         const {
             container,
-            parsing,
-            initialize,
-            data = {},
+            parsing,            // 数据处理函数
+            initialize,         // 初始化函数
             setGraph,
+            data = {},          // 数据信息
         } = this.props;
 
         const {clientWidth = 0, clientHeight = 0} = document.getElementById(container) || {};
-
         // 解析数据信息
         parsing(data);
 

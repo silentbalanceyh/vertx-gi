@@ -1,2 +1,2 @@
-# vertx-gi
-Zero Graphic Editor based on React
+# Vertx Gi
+

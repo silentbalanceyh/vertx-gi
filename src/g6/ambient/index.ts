@@ -3,6 +3,7 @@ import WrapContext from './react.context';
 import MgrCommand from './clazz.mgr.command';
 import MgrBehavior from './clazz.mgr.behavior';
 import Ambient from './clazz.ambient';
+import * as T from './toolkit';
 
 export {
     Cv,                   // 所有使用的常量
@@ -10,5 +11,6 @@ export {
     MgrCommand,           // 命令管理器
     MgrBehavior,          // 行为管理器
     Ambient,
+    T,
 }
 export * from './interfaces';

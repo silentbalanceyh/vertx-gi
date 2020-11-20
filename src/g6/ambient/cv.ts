@@ -44,6 +44,14 @@ export enum TypeGraph {
     Mind = 'mind',              // 脑图
 }
 
+/* 面板类型 */
+export enum TypeDetail {
+    Node = 'node',              // 节点
+    Edge = 'edge',              // 边
+    Group = 'group',            // 组
+    Canvas = 'canvas',          // 画布
+}
+
 // ---------------------- 状态 --------------------------
 /* 元素状态 */
 export enum StateItem {

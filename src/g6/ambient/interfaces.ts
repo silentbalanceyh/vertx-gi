@@ -195,3 +195,4 @@ export interface ShapeEdge<M = DataEdge> extends Shape<IEdge, M> {
 }
 
 export * from './interfaces.action';
+export * from './interfaces.native';

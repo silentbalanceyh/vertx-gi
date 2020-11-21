@@ -3,9 +3,16 @@ import ReactDOM from 'react-dom';
 import {EditorContextProp, WrapEditorContext} from "../components";
 import {Ambient, Cv, IItem, T} from '../ambient';
 
+/* 右键菜单类型 */
+export enum TypeContextMenu {
+    Canvas = 'canvas',          // 画布右键菜单
+    Node = 'node',              // 节点右键菜单
+    Edge = 'edge',              // 线右键菜单
+}
+
 interface ContextMenuProp extends EditorContextProp {
     /* 菜单类型 */
-    type?: Cv.TypeContextMenu,
+    type?: TypeContextMenu,
     /* 菜单内容 */
     renderContent: (item: IItem, position: { x: number, y: number }, hide: () => void) => React.ReactNode;
 }
@@ -17,7 +24,7 @@ interface ContextMenuState {
 
 class ContextMenu extends React.Component<ContextMenuProp, ContextMenuState> {
     static defaultProps = {
-        type: Cv.TypeContextMenu.Canvas,
+        type: TypeContextMenu.Canvas,
     }
 
     state = {
@@ -28,13 +35,13 @@ class ContextMenu extends React.Component<ContextMenuProp, ContextMenuState> {
     componentDidMount() {
         const {graph, type} = this.props;
         switch (type) {
-            case Cv.TypeContextMenu.Canvas:
+            case TypeContextMenu.Canvas:
                 graph.on(Cv.EventGraphCanvas.onCanvasContextMenu, ({x, y}) => this.showContext(x, y));
                 break;
-            case Cv.TypeContextMenu.Node:
+            case TypeContextMenu.Node:
                 graph.on(Cv.EventGraphNode.onNodeContextMenu, ({x, y, item}) => this.showContext(x, y, item));
                 break;
-            case Cv.TypeContextMenu.Edge:
+            case TypeContextMenu.Edge:
                 graph.on(Cv.EventGraphEdge.onEdgeContextMenu, ({x, y, item}) => this.showContext(x, y, item));
                 break;
             default:

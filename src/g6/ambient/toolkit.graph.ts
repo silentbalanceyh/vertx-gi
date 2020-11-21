@@ -1,4 +1,4 @@
-import {StateGraph, StateItem, TypeItem} from './cv';
+import {EventEditor, StateGraph, StateItem, TypeItem} from './cv';
 import * as G6 from '@antv/g6';
 import {IEdge, IItem, INode} from './interfaces.native';
 
@@ -10,6 +10,26 @@ export function getSelectedNodes(graph: G6.Graph): INode[] {
 /** 获取选中边线 */
 export function getSelectedEdges(graph: G6.Graph): IEdge[] {
     return graph.findAllByState(TypeItem.Edge, StateItem.Selected);
+}
+
+/** 设置选中元素 */
+export function setSelectedItems(graph: G6.Graph, items: IItem[] | string[]) {
+    executeBatch(graph, () => {
+        const selectedNodes = getSelectedNodes(graph);
+        const selectedEdges = getSelectedEdges(graph);
+
+        [...selectedNodes, ...selectedEdges].forEach(node => {
+            graph.setItemState(node, StateItem.Selected, false);
+        });
+
+        items.forEach(item => {
+            graph.setItemState(item, StateItem.Selected, true);
+        });
+    });
+
+    graph.emit(EventEditor.onGraphStateChange, {
+        graphState: getGraphState(graph),
+    });
 }
 
 /** 获取图表状态 */

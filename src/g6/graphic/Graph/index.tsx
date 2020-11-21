@@ -5,8 +5,8 @@ import {EditorContextPropPrivate, WrapEditorContextPrivate} from "../../componen
 import * as G6 from '@antv/g6';
 import {EventAop, EventGraphCanvas, EventGraphCommon, EventGraphEdge, EventGraphNode} from "@/g6/ambient/cv.event";
 
-import '@/g6/commands';
-import '@/g6/behaviors';
+import './behaviors';
+import './commands';
 
 interface GraphProp extends Partial<EventGraphReactProp>, EditorContextPropPrivate {
     style?: React.CSSProperties;

@@ -75,6 +75,11 @@ export enum StateLabel {
     Show = 'show'
 }
 
+/* 状态值 */
+export enum StateValue {
+    Active = 'active',       // 激活 / 非激活状态
+}
+
 // ---------------------- 命令 --------------------------
 /* 编辑器命令 */
 export enum CommandEditor {

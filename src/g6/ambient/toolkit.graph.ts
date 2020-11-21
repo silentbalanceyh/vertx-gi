@@ -1,6 +1,6 @@
 import {StateGraph, StateItem, TypeItem} from './cv';
 import * as G6 from '@antv/g6';
-import {IEdge, INode} from './interfaces.native';
+import {IEdge, IItem, INode} from './interfaces.native';
 import {Behavior} from "./interfaces.action";
 import {BehaviorOption} from "@antv/g6/lib/types";
 
@@ -51,3 +51,27 @@ export function toBehaviorOption(behavior: Behavior): BehaviorOption {
     return null;
 }
 
+/** 清空状态 **/
+export function clearSelected(graph: G6.Graph, shouldUpdate: (item: IItem) => boolean = () => true) {
+    const selectedNodes = getSelectedNodes(graph);
+    const selectedEdges = getSelectedEdges(graph);
+    executeBatch(graph, () => {
+        [...selectedNodes, ...selectedEdges].forEach(item => {
+            if (shouldUpdate(item)) {
+                graph.setItemState(item, StateItem.Selected, false);
+            }
+        })
+    })
+}
+
+/* 批量执行 */
+export function executeBatch(graph: G6.Graph, execute: Function) {
+    const autoPoint = graph.get('autoPaint');
+
+    graph.setAutoPaint(false);
+
+    execute();
+
+    graph.paint();
+    graph.setAutoPaint(autoPoint);
+}

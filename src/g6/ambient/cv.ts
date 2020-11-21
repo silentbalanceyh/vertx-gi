@@ -52,6 +52,13 @@ export enum TypeDetail {
     Canvas = 'canvas',          // 画布
 }
 
+/* 右键菜单类型 */
+export enum TypeContextMenu {
+    Canvas = 'canvas',          // 画布右键菜单
+    Node = 'node',              // 节点右键菜单
+    Edge = 'edge',              // 线右键菜单
+}
+
 // ---------------------- 状态 --------------------------
 /* 元素状态 */
 export enum StateItem {

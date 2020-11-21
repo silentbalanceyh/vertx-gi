@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {EditorContextProp, WrapEditorContext} from "../components";
-import {Ambient, Cv, IItem, T} from '../ambient';
+import {EditorContextProp, WrapEditorContext} from "@/g6/components";
+import {Ambient, Cv, IItem, T} from '@/g6/ambient';
 
 /* 右键菜单类型 */
 export enum TypeContextMenu {

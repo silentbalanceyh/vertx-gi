@@ -2,7 +2,7 @@ import React from 'react';
 import pick from 'lodash/pick';
 import {EditorContextProp, WrapEditorContext} from "./EditorContext";
 import Item from './ItemElement';
-import {Ambient, Cv} from "../ambient";
+import {Ambient, Cv} from "@/g6/ambient";
 
 import {IGroup} from '@antv/g-base';
 import {IShape} from '@antv/g-canvas/lib/interfaces';

@@ -1,6 +1,6 @@
 import React from 'react';
 import {EditorContextProp, WrapEditorContext} from "./EditorContext";
-import {Cv, MgrCommand,} from '../ambient';
+import {Cv, MgrCommand,} from '@/g6/ambient';
 
 interface CommandProp extends EditorContextProp {
     name: string;

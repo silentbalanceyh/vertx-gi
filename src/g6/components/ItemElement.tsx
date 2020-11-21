@@ -2,7 +2,7 @@ import React from 'react';
 import pick from 'lodash/pick';
 
 import {EditorContextProp, WrapEditorContext} from './EditorContext';
-import {Ambient, Cv, DataNode} from "../ambient";
+import {Ambient, Cv, DataNode} from "@/g6/ambient";
 
 export interface ItemProp extends EditorContextProp {
     style?: React.CSSProperties;

@@ -1,8 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import {EditorContextProp, WrapEditorContext} from "../components";
-import {Ambient, Cv, T} from "../ambient";
+import {EditorContextProp, WrapEditorContext} from "@/g6/components";
+import {Ambient, Cv, T} from "@/g6/ambient";
 import * as G6 from '@antv/g6';
 
 interface EditableLabelProp extends EditorContextProp {

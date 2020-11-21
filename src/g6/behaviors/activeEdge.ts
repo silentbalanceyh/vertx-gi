@@ -1,4 +1,4 @@
-import {Behavior, Cv, EventGraph, IEdge, MgrBehavior} from '../ambient';
+import {Behavior, Cv, EventGraph, IEdge, MgrBehavior} from '@/g6/ambient';
 
 interface ActiveEdgeBehavior extends Behavior {
     setAllItemStates(e: EventGraph): void;

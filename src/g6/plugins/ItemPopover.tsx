@@ -1,8 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import delay from 'lodash/delay';
-import {EditorContextProp, WrapEditorContext} from "../components";
-import {Ambient, Cv, IItem} from '../ambient';
+import {EditorContextProp, WrapEditorContext} from "@/g6/components";
+import {Ambient, Cv, IItem} from '@/g6/ambient';
 
 /* Popover 类型 */
 export enum TypeItemPopover {

@@ -1,6 +1,6 @@
 import React from 'react';
 import * as G6 from '@antv/g6';
-import {Behavior, Command, MgrBehavior, MgrCommand} from '../ambient';
+import {Behavior, Command, MgrBehavior, MgrCommand} from '@/g6/ambient';
 
 interface RegisterProp {
     name: string;

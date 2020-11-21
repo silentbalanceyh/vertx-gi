@@ -1,5 +1,5 @@
 import React from 'react';
-import {WrapContext} from '../ambient';
+import {WrapContext} from '@/g6/ambient';
 import * as G6 from '@antv/g6';
 
 export interface EditorContextProp {

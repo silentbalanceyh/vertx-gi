@@ -1,5 +1,5 @@
 import React from 'react';
-import {Cv, IEdge, INode, T} from '../ambient';
+import {Cv, IEdge, INode, T} from '@/g6/ambient';
 import {EditorContextProp, WrapEditorContext} from "./EditorContext";
 
 export interface DetailPanelProp {

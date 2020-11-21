@@ -1,7 +1,7 @@
 import React from 'react';
 import isArray from 'lodash/isArray';
 import pick from 'lodash/pick';
-import {Ambient, Cv, EventCommand, MgrCommand} from "../ambient";
+import {Ambient, Cv, EventCommand, MgrCommand} from "@/g6/ambient";
 import {EditorContext, EditorContextPrivate, EditorContextProp, EditorContextPropPrivate} from "./EditorContext";
 import * as G6 from '@antv/g6';
 

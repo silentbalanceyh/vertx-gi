@@ -7,13 +7,18 @@ import {
     EventGraphEdge,
     EventGraphNode,
     StateGraph,
-    StateLabel
+    StateLabel,
+    TypeGraph
 } from "./cv";
 import {BehaviorOption} from "@antv/g6/lib/types";
 
 export interface Behavior extends BehaviorOption {
     // 提供图引用，绑定和非绑定专用操作
-    // graph: G6.Graph | null,
+    graph?: G6.Graph;
+    // 当前图类型
+    graphType?: TypeGraph;
+    // 当前图模式
+    graphMode?: string;
 }
 
 export interface Command<P = object, G = G6.Graph> {

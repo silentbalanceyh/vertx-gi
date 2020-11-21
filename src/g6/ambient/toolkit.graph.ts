@@ -77,3 +77,49 @@ export function executeBatch(graph: G6.Graph, execute: Function) {
     graph.paint();
     graph.setAutoPaint(autoPoint);
 }
+
+
+/** 获取回溯路径 - Flow */
+export function getFlowRecallEdges(graph: G6.Graph, node: INode, targetIds: string[] = [], edges: IEdge[] = []) {
+    const inEdges: IEdge[] = node.getInEdges();
+
+    if (!inEdges.length) {
+        return [];
+    }
+
+    inEdges.map(edge => {
+        const sourceId = edge.getModel().source as string;
+        const sourceNode = graph.findById(sourceId) as INode;
+
+        edges.push(edge);
+
+        const targetId = node.get('id');
+
+        targetIds.push(targetId);
+
+        if (!targetIds.includes(sourceId)) {
+            getFlowRecallEdges(graph, sourceNode, targetIds, edges);
+        }
+    });
+
+    return edges;
+}
+
+/** 获取回溯路径 - Mind */
+export function getMindRecallEdges(graph: G6.TreeGraph, node: INode, edges: IEdge[] = []) {
+    const parentNode = node.get('parent');
+
+    if (!parentNode) {
+        return edges;
+    }
+
+    node.getEdges().forEach(edge => {
+        const sourceId = edge.getModel().source;
+
+        if (sourceId === parentNode.get('id')) {
+            edges.push(edge);
+        }
+    });
+
+    return getMindRecallEdges(graph, parentNode, edges);
+}

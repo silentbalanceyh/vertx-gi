@@ -1,5 +1,6 @@
 import {Behavior, Cv, IItem, KeyPressed, MgrBehavior, T} from "@/g6/ambient";
 import * as G6 from '@antv/g6';
+import {IGraph} from "@antv/g6/lib/interface/graph";
 
 interface ClickItemBehavior extends Behavior {
     /* 处理元素点击事件 */
@@ -16,6 +17,15 @@ interface ClickItemBehavior extends Behavior {
 }
 
 const clickItemBehavior: ClickItemBehavior & ThisType<ClickItemBehavior & KeyPressed> = {
+    graph: null,
+
+    bind(e: IGraph) {
+        this.graph = e as G6.Graph;
+    },
+
+    unbind(e: IGraph) {
+        this.graph = null;
+    },
 
     getDefaultCfg(): KeyPressed {
         return {
@@ -36,26 +46,25 @@ const clickItemBehavior: ClickItemBehavior & ThisType<ClickItemBehavior & KeyPre
     },
 
     handleClickItem({item}: { item: IItem }) {
-        const graph = this.graph as G6.Graph;
 
-        if (T.isMind(graph) && T.isEdge(item)) {
+        if (T.isMind(this.graph) && T.isEdge(item)) {
             return;
         }
 
         const isSelected = item.hasState(Cv.StateItem.Selected);
 
         if (this.multiple && this.keydown) {
-            graph.setItemState(item, Cv.StateItem.Selected, !isSelected);
+            this.graph.setItemState(item, Cv.StateItem.Selected, !isSelected);
         } else {
-            T.clearSelected(graph, selectedItem => selectedItem !== item);
+            T.clearSelected(this.graph, selectedItem => selectedItem !== item);
 
             if (!isSelected) {
-                graph.setItemState(item, Cv.StateItem.Selected, true);
+                this.graph.setItemState(item, Cv.StateItem.Selected, true);
             }
         }
 
-        graph.emit(Cv.EventEditor.onGraphStateChange, {
-            graphState: T.getGraphState(graph)
+        this.graph.emit(Cv.EventEditor.onGraphStateChange, {
+            graphState: T.getGraphState(this.graph)
         })
     },
 

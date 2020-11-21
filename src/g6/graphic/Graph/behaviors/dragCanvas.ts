@@ -1,6 +1,7 @@
 import {Behavior, Cv, KeyAllowed, MgrBehavior} from "@/g6/ambient";
 import {IG6GraphEvent} from "@antv/g6/lib/types";
 import * as G6 from "@antv/g6";
+import {IGraph} from "@antv/g6/lib/interface/graph";
 
 interface DragCanvasBehavior extends Behavior {
     /* 开始拖拽的坐标 */
@@ -44,6 +45,15 @@ interface DragCanvasBehavior extends Behavior {
 }
 
 const dragCanvasBehavior: DragCanvasBehavior & ThisType<DragCanvasBehavior & KeyAllowed> = {
+    graph: null,
+
+    bind(e: IGraph) {
+        this.graph = e as G6.Graph;
+    },
+
+    unbind(e: IGraph) {
+        this.graph = null;
+    },
 
     origin: null,
 
@@ -100,9 +110,8 @@ const dragCanvasBehavior: DragCanvasBehavior & ThisType<DragCanvasBehavior & Key
             y: clientY,
         };
 
-        const graph = this.graph as G6.Graph;
-        graph.translate(dx, dy);
-        graph.paint();
+        this.graph.translate(dx, dy);
+        this.graph.paint();
     },
 
     handleCanvasMouseDown(e: IG6GraphEvent) {
@@ -131,17 +140,16 @@ const dragCanvasBehavior: DragCanvasBehavior & ThisType<DragCanvasBehavior & Key
         if (!this.origin) {
             return;
         }
-        const graph = this.graph as G6.Graph;
 
         if (!this.dragging) {
-            graph.emit(Cv.EventGraphCanvas.onCanvasDragStart, {
+            this.graph.emit(Cv.EventGraphCanvas.onCanvasDragStart, {
                 type: 'dragstart',
                 ...e,
             });
 
             this.dragging = true;
         } else {
-            graph.emit(Cv.EventGraphCanvas.onCanvasDrag, {
+            this.graph.emit(Cv.EventGraphCanvas.onCanvasDrag, {
                 type: 'drag',
                 ...e,
             });
@@ -158,9 +166,8 @@ const dragCanvasBehavior: DragCanvasBehavior & ThisType<DragCanvasBehavior & Key
         if (!this.canDrag()) {
             return;
         }
-        const graph = this.graph as G6.Graph;
 
-        graph.emit(Cv.EventGraphCanvas.onCanvasDragEnd, {
+        this.graph.emit(Cv.EventGraphCanvas.onCanvasDragEnd, {
             type: 'dragend',
             ...e
         });
@@ -175,8 +182,7 @@ const dragCanvasBehavior: DragCanvasBehavior & ThisType<DragCanvasBehavior & Key
     },
 
     handleCanvasMouseLeave(e: IG6GraphEvent) {
-        const graph = this.graph as G6.Graph;
-        const elementCanvas = graph.get(Cv.ModeRender.Canvas).get('el');
+        const elementCanvas = this.graph.get(Cv.ModeRender.Canvas).get('el');
 
         if (this.handleWindowMouseUp) {
             return;

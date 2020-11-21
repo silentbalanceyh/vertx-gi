@@ -1,5 +1,6 @@
-import {Behavior, Cv, IItem} from "@/g6/ambient";
+import {Behavior, Cv, IItem, MgrBehavior} from "@/g6/ambient";
 import * as G6 from "@antv/g6";
+import {IGraph} from "@antv/g6/lib/interface/graph";
 
 interface HoverItemBehavior extends Behavior {
 
@@ -11,6 +12,15 @@ interface HoverItemBehavior extends Behavior {
 }
 
 const hoverItemBehavior: HoverItemBehavior = {
+    graph: null,
+
+    bind(e: IGraph) {
+        this.graph = e as G6.Graph;
+    },
+
+    unbind(e: IGraph) {
+        this.graph = null;
+    },
 
     getEvents() {
         const events = {};
@@ -22,14 +32,13 @@ const hoverItemBehavior: HoverItemBehavior = {
     },
 
     handleItemMouseenter({item}: { item: IItem }) {
-        const graph = this.graph as G6.Graph;
 
-        graph.setItemState(item, Cv.StateItem.Active, true);
+        this.graph.setItemState(item, Cv.StateItem.Active, true);
     },
 
     handleItemMouseleave({item}: { item: IItem }) {
-        const graph = this.graph as G6.Graph;
-
-        graph.setItemState(item, Cv.StateItem.Active, false);
+        this.graph.setItemState(item, Cv.StateItem.Active, false);
     }
-}
+};
+
+MgrBehavior.registry('hover-item', hoverItemBehavior);

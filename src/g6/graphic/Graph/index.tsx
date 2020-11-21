@@ -1,7 +1,7 @@
 import React from 'react';
 import pick from 'lodash/pick';
 import {Ambient, Cv, EventGraphNative, EventGraphReact, EventGraphReactProp, GraphFlow, GraphMind} from '@/g6/ambient';
-import {EditorContextPropPrivate, WrapEditorContextPrivate} from "./EditorContext";
+import {EditorContextPropPrivate, WrapEditorContextPrivate} from "../../components/EditorContext";
 import * as G6 from '@antv/g6';
 import {EventAop, EventGraphCanvas, EventGraphCommon, EventGraphEdge, EventGraphNode} from "@/g6/ambient/cv.event";
 

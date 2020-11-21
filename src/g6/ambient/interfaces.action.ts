@@ -7,47 +7,13 @@ import {
     EventGraphEdge,
     EventGraphNode,
     StateGraph,
-    StateLabel,
-    TypeGraph
+    StateLabel
 } from "./cv";
-import {IShape} from '@antv/g-canvas/lib/interfaces';
-import {IItem} from './interfaces.native';
+import {BehaviorOption} from "@antv/g6/lib/types";
 
-export interface Behavior {
-    graph?: G6.Graph;
-    graphType?: TypeGraph;
-    graphMode?: string;
-
-    getEvents(): {
-        [propName in EventGraphNative]?: string;
-    };
-
-    getDefaultCfg?(): object;
-
-    shouldBegin?(e?: EventGraph): boolean;
-
-    shouldUpdate?(e?: EventGraph): boolean;
-
-    shouldEnd?(e?: EventGraph): boolean;
-}
-
-export interface EventGraph {
-    x: number;
-    y: number;
-    canvasX: number;
-    canvasY: number;
-    clientX: number;
-    clientY: number;
-    event: MouseEvent;
-    target: IShape;
-    type: string;
-    currentTarget: object;
-    item: IItem;
-    removed: boolean;
-    timeStamp: number;
-    bubbles: boolean;
-    defaultPrevented: boolean;
-    cancelable: boolean;
+export interface Behavior extends BehaviorOption {
+    // 提供图引用，绑定和非绑定专用操作
+    // graph: G6.Graph | null,
 }
 
 export interface Command<P = object, G = G6.Graph> {
@@ -105,3 +71,22 @@ export type EventGraphReact =
     | keyof typeof EventAop
 
 export type EventGraphReactProp = Record<EventGraphReact, (e: any) => void>;
+
+/*
+ * 键盘事件，是否支持多按键处理
+ */
+export interface KeyPressed {
+    /** 是否支持多选 */
+    multiple: boolean;
+    /** 是否按下多选 */
+    keydown: boolean;
+    /** 多选按键码值 */
+    keyCode: number;
+}
+
+export interface KeyAllowed {
+    /** 允许拖拽 KeyCode */
+    allowKeyCode: number[];
+    /** 禁止拖拽 KeyCode */
+    notAllowKeyCode: number[];
+}

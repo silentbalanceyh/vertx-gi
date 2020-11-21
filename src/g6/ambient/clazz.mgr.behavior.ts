@@ -1,6 +1,6 @@
 import {Behavior} from "./interfaces.action";
 import * as G6 from '@antv/g6';
-import {isMind, toBehaviorOption} from './toolkit';
+import {isMind} from './toolkit';
 import {TypeGraph} from "./cv";
 import {BehaviorOption} from "@antv/g6/lib/types";
 
@@ -14,7 +14,7 @@ class MgrBehavior {
     }
 
     registered(type: TypeGraph) {
-        const registered = {};
+        const registered: any = {};
 
         Object.keys(this.behaviors).forEach(name => {
             const behavior = this.behaviors[name];
@@ -26,12 +26,13 @@ class MgrBehavior {
             }
 
             const {graphMode = 'default'} = behavior;
+            const keyMode = graphMode as string;
 
-            if (!registered[graphMode]) {
-                registered[graphMode] = {};
+            if (!registered[keyMode]) {
+                registered[keyMode] = {};
             }
 
-            registered[graphMode][name] = name;
+            registered[keyMode][name] = name;
         });
 
         return registered;
@@ -42,7 +43,7 @@ class MgrBehavior {
 
         Object.keys(events).forEach(event => {
             const handlerName = events[event];
-            const handler = behavior[handlerName];
+            const handler = behavior[handlerName] as Function;
 
             behavior[handlerName] = function (...params: any[]) {
                 const {graph} = this;
@@ -56,7 +57,7 @@ class MgrBehavior {
             };
         });
 
-        return toBehaviorOption(behavior);
+        return behavior as BehaviorOption;
     }
 
     registry(name: string, behavior: Behavior) {
@@ -72,7 +73,7 @@ class MgrBehavior {
                 G6.registerBehavior(name, this.wrapHandler(TypeGraph.Mind, behavior));
                 break;
             default:
-                G6.registerBehavior(name, toBehaviorOption(behavior));
+                G6.registerBehavior(name, behavior as BehaviorOption);
                 break;
         }
     }

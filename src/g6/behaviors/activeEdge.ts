@@ -1,12 +1,25 @@
-import {Behavior, Cv, EventGraph, IEdge, MgrBehavior} from '@/g6/ambient';
+import {Behavior, Cv, IEdge, MgrBehavior} from '@/g6/ambient';
+import {IG6GraphEvent} from "@antv/g6/lib/types";
+import {IGraph} from "@antv/g6/lib/interface/graph";
+import * as G6 from '@antv/g6';
 
 interface ActiveEdgeBehavior extends Behavior {
-    setAllItemStates(e: EventGraph): void;
+    setAllItemStates(e: IG6GraphEvent): void;
 
-    clearAllItemStates(e: EventGraph): void;
+    clearAllItemStates(e: IG6GraphEvent): void;
 }
 
 const activeEdgeBehavior: ActiveEdgeBehavior = {
+    graph: null,
+
+    bind(e: IGraph) {
+        this.graph = e as G6.Graph;
+    },
+
+    unbind(e: IGraph) {
+        this.graph = null;
+    },
+
     graphType: Cv.TypeGraph.Flow,
 
     getEvents() {
@@ -16,13 +29,13 @@ const activeEdgeBehavior: ActiveEdgeBehavior = {
         return events;
     },
 
-    shouldBegin(e?: EventGraph) {
+    shouldBegin(e?: IG6GraphEvent) {
         // 拖拽后没有目标节点，只有x,y 坐标，不点亮
         const edge = e.item as IEdge;
         return !edge.getTarget().getBBox().x;
     },
 
-    setAllItemStates(e: EventGraph) {
+    setAllItemStates(e: IG6GraphEvent) {
         if (!this.shouldBegin(e)) {
             return;
         }
@@ -37,7 +50,7 @@ const activeEdgeBehavior: ActiveEdgeBehavior = {
         graph.setItemState(edge.getSource(), Cv.StateValue.Active, true);
     },
 
-    clearAllItemStates(e: EventGraph) {
+    clearAllItemStates(e: IG6GraphEvent) {
         if (!this.shouldBegin(e)) {
             return;
         }

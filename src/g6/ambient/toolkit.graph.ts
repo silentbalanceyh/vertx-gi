@@ -1,8 +1,6 @@
 import {StateGraph, StateItem, TypeItem} from './cv';
 import * as G6 from '@antv/g6';
 import {IEdge, IItem, INode} from './interfaces.native';
-import {Behavior, EventGraph} from "./interfaces.action";
-import {BehaviorOption, IG6GraphEvent} from "@antv/g6/lib/types";
 
 /** 获取选中节点 */
 export function getSelectedNodes(graph: G6.Graph): INode[] {
@@ -45,22 +43,14 @@ export function isMind(graph: G6.Graph) {
     return graph.constructor === G6.TreeGraph;
 }
 
-/** 转换 **/
-export function toBehaviorOption(behavior: Behavior): BehaviorOption {
-    /* 事件绑定 */
-    return {
-        getEvents: behavior.getEvents,
-        getDefaultCfg: behavior.getDefaultCfg,
-        shouldBegin(e?: IG6GraphEvent): boolean {
-            return behavior.shouldBegin(e as unknown as EventGraph);
-        },
-        shouldUpdate(e?: IG6GraphEvent): boolean {
-            return behavior.shouldUpdate(e as unknown as EventGraph);
-        },
-        shouldEnd(e?: IG6GraphEvent): boolean {
-            return behavior.shouldEnd(e as unknown as EventGraph);
-        }
-    };
+/** 判断是否节点 */
+export function isNode(item: IItem) {
+    return item.getType() === TypeItem.Node;
+}
+
+/** 判断是否边线 */
+export function isEdge(item: IItem) {
+    return item.getType() === TypeItem.Edge;
 }
 
 /** 清空状态 **/
